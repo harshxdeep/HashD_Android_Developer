@@ -1,17 +1,23 @@
+..profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .profile-img {
-  width: 220px;        /* adjust size here */
-  height: 220px;
-  object-fit: cover;
-  border-radius: 50%;  /* makes it circular */
-  box-shadow: 0 0 20px #38bdf8;
-  display: block;
-  margin: 20px auto;
+  width: 200px;        /* bigger size */
+  height: 200px;       /* keep equal for perfect circle */
+  object-fit: cover;   /* prevents stretching */
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+  transition: transform 0.3s ease;
 }
 
 .profile-img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px #38bdf8;
 }
+
 
 /* ============================= */
 /* GLOBAL STYLES */
