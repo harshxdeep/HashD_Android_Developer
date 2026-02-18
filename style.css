@@ -1,11 +1,11 @@
 .profile-img {
-  width: 160px;      /* smaller size */
-  height: 160px;     /* keep same for circle */
+  width: 220px;        /* adjust size here */
+  height: 220px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 50%;  /* makes it circular */
+  box-shadow: 0 0 20px #38bdf8;
   display: block;
   margin: 20px auto;
-  box-shadow: 0 0 15px #38bdf8;
 }
 
 .profile-img:hover {
