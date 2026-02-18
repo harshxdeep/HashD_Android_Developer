@@ -1,4 +1,4 @@
-..profile-img {
+.profile-img {
   width: 120px;      /* smaller size */
   height: 120px;     /* keep same for circle */
   object-fit: cover;
