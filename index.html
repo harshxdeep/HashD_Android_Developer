@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harshdeep Walia | Android Developer</title>
-<link rel="stylesheet" href="style.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- HERO SECTION -->
+<!-- HEADER -->
 <header>
   <nav>
     <h2 class="logo">Harshdeep Walia</h2>
@@ -24,7 +26,9 @@
 
   <div class="hero">
     <h1>Hello, I’m Harshdeep Walia</h1>
-    <h2>I build <span class="typed-text"></span></h2>
+    <h2>Senior Android Developer</h2>
+    <p>Building Enterprise & Telecom Mobile Applications</p>
+
     <div class="hero-buttons">
       <a href="resume.pdf" class="btn primary" target="_blank">Download Resume</a>
       <a href="#contact" class="btn secondary">Contact Me</a>
@@ -35,7 +39,11 @@
 <!-- ABOUT -->
 <section id="about">
   <h2>About Me</h2>
-  <p>Self-motivated and goal-oriented Android Developer with 4.5+ years of experience specializing in mobile application development. Expertise in Kotlin, Java, and React. Proven track record of developing high-performance applications with a focus on user experience, problem-solving, and delivering robust, scalable solutions.</p>
+  <p>
+    Senior Android Developer with 4.5+ years of experience building scalable,
+    high-performance mobile applications. Specialized in Kotlin, Java, SDK integrations,
+    and enterprise-grade telecom solutions.
+  </p>
 </section>
 
 <!-- EXPERIENCE -->
@@ -43,12 +51,24 @@
   <h2>Work Experience</h2>
 
   <div class="timeline-item">
+    <h3>ACL Digital</h3>
+    <p><strong>Senior Software Developer (SDE II) | Jun 2025 – Present</strong></p>
+    <ul>
+      <li>Leading Android SDK-based telecom application development</li>
+      <li>Working on My Network App powered by Ookla via SpatialBuzz</li>
+      <li>Enterprise deployments for Telefonica & VMO2</li>
+      <li>Specializing in SDK integration, analytics & performance monitoring</li>
+      <li>Tech: Kotlin, Java, MVVM, REST APIs</li>
+    </ul>
+  </div>
+
+  <div class="timeline-item">
     <h3>BirlaSoft Limited – Pune</h3>
-    <p><strong>Senior Software Developer | Jul 2022 – Present</strong></p>
+    <p><strong>Senior Software Developer | Jul 2022 – Jun 2025</strong></p>
     <ul>
       <li>UltraTech Trade Connect – Multi Retailer Order & Finance Modules</li>
       <li>Reduced order processing time by 30%</li>
-      <li>Tech: Kotlin, Java, Firebase, AWS Amplify, Retrofit, MySQL</li>
+      <li>Tech: Kotlin, Firebase, AWS Amplify, Retrofit</li>
     </ul>
   </div>
 
@@ -58,16 +78,7 @@
     <ul>
       <li>NGIN Platform (ULIP & ERM)</li>
       <li>Improved claim processing by 15%</li>
-      <li>Tech: React, JavaScript, SQL, Firebase</li>
-    </ul>
-  </div>
-
-  <div class="timeline-item">
-    <h3>Metacube Software Pvt Ltd – Jaipur</h3>
-    <p><strong>Programmer Analyst Internship | May – Jul 2019</strong></p>
-    <ul>
-      <li>Career Guidance web app</li>
-      <li>Tech: PHP, HTML, CSS, JS, MySQL</li>
+      <li>Tech: React, JavaScript, SQL</li>
     </ul>
   </div>
 </section>
@@ -75,48 +86,57 @@
 <!-- SKILLS -->
 <section id="skills">
   <h2>Technical Skills</h2>
+
   <div class="skills-grid">
-    <div class="skill">
-      <p>Kotlin</p>
-      <div class="skill-bar" data-width="90%"><span></span></div>
-    </div>
-    <div class="skill">
-      <p>Java</p>
-      <div class="skill-bar" data-width="90%"><span></span></div>
-    </div>
-    <div class="skill">
-      <p>React</p>
-      <div class="skill-bar" data-width="85%"><span></span></div>
-    </div>
-    <div class="skill">
-      <p>Firebase</p>
-      <div class="skill-bar" data-width="80%"><span></span></div>
-    </div>
-    <div class="skill">
-      <p>AWS Amplify</p>
-      <div class="skill-bar" data-width="75%"><span></span></div>
-    </div>
-    <div class="skill">
-      <p>Retrofit</p>
-      <div class="skill-bar" data-width="85%"><span></span></div>
-    </div>
+    <div class="skill"><p>Kotlin</p><div class="bar"><span style="width:90%"></span></div></div>
+    <div class="skill"><p>Java</p><div class="bar"><span style="width:90%"></span></div></div>
+    <div class="skill"><p>MVVM</p><div class="bar"><span style="width:85%"></span></div></div>
+    <div class="skill"><p>Firebase</p><div class="bar"><span style="width:80%"></span></div></div>
+    <div class="skill"><p>AWS Amplify</p><div class="bar"><span style="width:75%"></span></div></div>
+    <div class="skill"><p>SDK Integration</p><div class="bar"><span style="width:85%"></span></div></div>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <h2>Projects / Apps</h2>
+  <h2>Featured Projects</h2>
+
   <div class="projects-grid">
+
+    <div class="project-card">
+      <h3>My Network App</h3>
+      <p class="badge">Telecom • Enterprise</p>
+      <p>Android telecom performance monitoring app powered by Ookla SDK. Customized for Telefonica & VMO2.</p>
+      <div class="tags">
+        <span>Kotlin</span>
+        <span>SDK</span>
+        <span>Analytics</span>
+        <span>REST APIs</span>
+      </div>
+    </div>
+
     <div class="project-card">
       <h3>UltraTech Trade Connect</h3>
-      <p>Android app for B2B cement trade. Features multi-retailer orders, finance, and sales dashboards.</p>
-      <a href="https://play.google.com/store/apps/details?id=com.ultratech.tradeconnect" target="_blank">View on Play Store</a>
+      <p class="badge">Enterprise • B2B</p>
+      <p>Multi-retailer order & finance management Android app.</p>
+      <div class="tags">
+        <span>Kotlin</span>
+        <span>Firebase</span>
+        <span>AWS</span>
+      </div>
     </div>
+
     <div class="project-card">
       <h3>Grab Cab App</h3>
-      <p>Online cab booking app with real-time tracking and payment integration.</p>
-      <a href="#" target="_blank">View on Play Store</a>
+      <p class="badge">Mobility • Utility</p>
+      <p>Real-time cab booking app with live tracking & payment integration.</p>
+      <div class="tags">
+        <span>Java</span>
+        <span>Google Maps</span>
+        <span>Payments</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -128,11 +148,9 @@
   <p>LinkedIn: <a href="https://www.linkedin.com/in/harshwalia27" target="_blank">linkedin.com/in/harshwalia27</a></p>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 Harshdeep Walia</p>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
