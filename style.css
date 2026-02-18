@@ -1,3 +1,13 @@
+.profile-img {
+  width: 180px;
+  max-width: 90%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #38bdf8;
+  display: block;
+  margin: 20px auto;
+}
+
 /* ============================= */
 /* GLOBAL STYLES */
 /* ============================= */
