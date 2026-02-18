@@ -1,12 +1,11 @@
-.profile-img {
-  width: 160px;          /* slightly smaller */
-  height: 160px;         /* fixed height for perfect circle */
-  object-fit: cover;     /* prevents stretching */
+..profile-img {
+  width: 120px;      /* smaller size */
+  height: 120px;     /* keep same for circle */
+  object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0 0 15px #38bdf8;
   display: block;
-  margin: 30px auto 20px auto;  /* better spacing in hero */
-  transition: 0.3s ease;
+  margin: 20px auto;
+  box-shadow: 0 0 15px #38bdf8;
 }
 
 .profile-img:hover {
