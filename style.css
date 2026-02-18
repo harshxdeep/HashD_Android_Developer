@@ -1,3 +1,7 @@
+/* ============================= */
+/* GLOBAL STYLES */
+/* ============================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +14,10 @@ body {
   color: #fff;
   line-height: 1.6;
 }
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
 
 header {
   background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -31,20 +39,36 @@ nav ul {
 nav a {
   text-decoration: none;
   color: #cbd5e1;
+  transition: 0.3s;
 }
 
 nav a:hover {
   color: #38bdf8;
+  text-shadow: 0 0 8px #38bdf8;
 }
+
+/* ============================= */
+/* HERO SECTION */
+/* ============================= */
 
 .hero {
   text-align: center;
   margin-top: 60px;
 }
 
-.hero h1 { font-size: 42px; }
+.hero h1 {
+  font-size: 42px;
+}
 
-.hero h2 { color: #38bdf8; margin: 10px 0; }
+.hero h2 {
+  color: #38bdf8;
+  margin: 10px 0;
+  text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
 
 .btn {
   padding: 10px 20px;
@@ -52,19 +76,47 @@ nav a:hover {
   text-decoration: none;
   margin: 10px;
   display: inline-block;
+  transition: 0.3s ease;
 }
 
-.primary { background: #38bdf8; color: #000; }
-.secondary { border: 1px solid #38bdf8; color: #38bdf8; }
-
-section { padding: 80px 10%; }
-
-.timeline-item.visible {
-  opacity: 1;
-  transform: translateY(0);
+.primary {
+  background: #38bdf8;
+  color: #000;
+  box-shadow: 0 0 10px #38bdf8;
 }
 
-.skills-grid { display: grid; gap: 20px; }
+.primary:hover {
+  box-shadow: 0 0 20px #38bdf8, 0 0 40px #38bdf8;
+  transform: translateY(-3px);
+}
+
+.secondary {
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
+
+.secondary:hover {
+  background: #38bdf8;
+  color: #000;
+  box-shadow: 0 0 20px #38bdf8;
+}
+
+/* ============================= */
+/* SECTIONS */
+/* ============================= */
+
+section {
+  padding: 80px 10%;
+}
+
+/* ============================= */
+/* SKILLS SECTION */
+/* ============================= */
+
+.skills-grid {
+  display: grid;
+  gap: 20px;
+}
 
 .bar {
   background: #1e293b;
@@ -78,7 +130,12 @@ section { padding: 80px 10%; }
   background: #38bdf8;
   width: 0;
   transition: width 1.2s ease;
+  box-shadow: 0 0 10px #38bdf8;
 }
+
+/* ============================= */
+/* PROJECTS SECTION */
+/* ============================= */
 
 .projects-grid {
   display: grid;
@@ -91,14 +148,19 @@ section { padding: 80px 10%; }
   padding: 25px;
   border-radius: 15px;
   transition: 0.3s;
+  border: 1px solid transparent;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(56,189,248,0.3);
+  box-shadow: 0 0 20px rgba(56,189,248,0.6),
+              0 0 40px rgba(56,189,248,0.4);
+  border: 1px solid #38bdf8;
 }
 
-.badge { color: #38bdf8; }
+.badge {
+  color: #38bdf8;
+}
 
 .tags span {
   display: inline-block;
@@ -109,23 +171,19 @@ section { padding: 80px 10%; }
   margin: 5px 5px 0 0;
 }
 
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #0f172a;
-}
 /* ============================= */
-/* WORK EXPERIENCE SECTION FIX   */
+/* EXPERIENCE SECTION */
 /* ============================= */
 
 #experience {
-  background: #111827; /* Slightly lighter than body */
+  background: #111827;
 }
 
 #experience h2 {
   color: #38bdf8;
   font-size: 32px;
   margin-bottom: 40px;
+  text-shadow: 0 0 10px #38bdf8;
 }
 
 .timeline-item {
@@ -135,6 +193,12 @@ footer {
   margin-bottom: 30px;
   border-left: 5px solid #38bdf8;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  transition: 0.3s ease;
+}
+
+.timeline-item:hover {
+  box-shadow: 0 0 20px rgba(56,189,248,0.5);
+  transform: translateY(-5px);
 }
 
 .timeline-item h3 {
@@ -167,6 +231,30 @@ footer {
 /* Highlight Current Company */
 .timeline-item.current {
   border-left: 5px solid #22c55e;
-  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
 }
 
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #0f172a;
+  color: #94a3b8;
+}
+
+/* ============================= */
+/* GLOW ANIMATION */
+/* ============================= */
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 5px #38bdf8; }
+  50% { box-shadow: 0 0 20px #38bdf8; }
+  100% { box-shadow: 0 0 5px #38bdf8; }
+}
+
+.primary {
+  animation: glowPulse 2s infinite;
+}
