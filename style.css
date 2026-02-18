@@ -1,6 +1,6 @@
 .profile-img {
-  width: 120px;      /* smaller size */
-  height: 120px;     /* keep same for circle */
+  width: 160px;      /* smaller size */
+  height: 160px;     /* keep same for circle */
   object-fit: cover;
   border-radius: 50%;
   display: block;
