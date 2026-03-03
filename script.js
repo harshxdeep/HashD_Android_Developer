@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
 /* ============================= */
 
 const phrases = [
-  "Android Apps",
-  "Kotlin Projects",
-  "Enterprise Telecom Solutions",
-  "Mobile Experiences",
-  "Scalable Applications"
+  "iOS & Android Apps",
+  "Swift & Kotlin Projects",
+  "Cross-Platform Solutions",
+  "Enterprise Mobile Apps",
+  "Native Mobile Experiences"
 ];
 
 let i = 0, currentText = "", isDeleting = false;
