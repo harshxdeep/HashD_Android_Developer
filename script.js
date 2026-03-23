@@ -1,149 +1,175 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-/* ============================= */
-/* TYPING EFFECT */
-/* ============================= */
+  /* ============================= */
+  /* TYPING EFFECT (SMOOTHER) */
+  /* ============================= */
 
-const phrases = [
-  "iOS & Android Apps",
-  "Swift & Kotlin Projects",
-  "Cross-Platform Solutions",
-  "Enterprise Mobile Apps",
-  "Native Mobile Experiences"
-];
+  const phrases = [
+    "iOS & Android Apps",
+    "Swift & Kotlin Projects",
+    "Cross-Platform Solutions",
+    "Enterprise Mobile Apps",
+    "Native Mobile Experiences"
+  ];
 
-let i = 0, currentText = "", isDeleting = false;
-const typedText = document.querySelector(".typed-text");
+  const typedText = document.querySelector(".typed-text");
+  if (typedText) {
+    let i = 0;
+    let currentText = "";
+    let isDeleting = false;
 
-function type() {
-  const fullText = phrases[i];
-  currentText = isDeleting
-    ? fullText.substring(0, currentText.length - 1)
-    : fullText.substring(0, currentText.length + 1);
+    const typeSpeed = 100;
+    const deleteSpeed = 50;
+    const pauseTime = 1500;
 
-  typedText.textContent = currentText;
+    function typeEffect() {
+      const fullText = phrases[i];
 
-  let speed = isDeleting ? 60 : 120;
+      currentText = isDeleting
+        ? fullText.slice(0, currentText.length - 1)
+        : fullText.slice(0, currentText.length + 1);
 
-  if (!isDeleting && currentText === fullText) {
-    speed = 1500;
-    isDeleting = true;
-  } else if (isDeleting && currentText === "") {
-    isDeleting = false;
-    i = (i + 1) % phrases.length;
-    speed = 500;
-  }
+      typedText.textContent = currentText;
 
-  setTimeout(type, speed);
-}
+      let speed = isDeleting ? deleteSpeed : typeSpeed;
 
-type();
-
-/* ============================= */
-/* MOBILE MENU TOGGLE */
-/* ============================= */
-
-const mobileMenu = document.getElementById('mobile-menu');
-const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
-
-mobileMenu.addEventListener('click', () => {
-  mobileMenu.classList.toggle('active');
-  navMenu.classList.toggle('active');
-});
-
-// Close menu when clicking on a link
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('active');
-    navMenu.classList.remove('active');
-  });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-  if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target)) {
-    mobileMenu.classList.remove('active');
-    navMenu.classList.remove('active');
-  }
-});
-
-/* ============================= */
-/* SCROLL ANIMATIONS */
-/* ============================= */
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-
-      const bar = entry.target.querySelector(".bar span");
-      if (bar) {
-        bar.style.width = bar.dataset.width;
+      if (!isDeleting && currentText === fullText) {
+        speed = pauseTime;
+        isDeleting = true;
+      } else if (isDeleting && currentText === "") {
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+        speed = 400;
       }
+
+      setTimeout(typeEffect, speed);
     }
-  });
-}, { threshold: 0.2 });
 
-document.querySelectorAll(".timeline-item, .skill, .project-card")
-  .forEach(el => observer.observe(el));
-
-/* ============================= */
-/* BACK TO TOP BUTTON */
-/* ============================= */
-
-const backToTopBtn = document.getElementById('back-to-top');
-
-window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
-    backToTopBtn.classList.add('show');
-  } else {
-    backToTopBtn.classList.remove('show');
+    typeEffect();
   }
-});
 
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-});
+  /* ============================= */
+  /* MOBILE MENU */
+  /* ============================= */
 
-/* ============================= */
-/* SMOOTH SCROLL FOR NAV LINKS */
-/* ============================= */
+  const mobileMenu = document.getElementById("mobile-menu");
+  const navMenu = document.querySelector(".nav-menu");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+  if (mobileMenu && navMenu) {
+    mobileMenu.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+        navMenu.classList.remove("active");
       });
-    }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!mobileMenu.contains(e.target) && !navMenu.contains(e.target)) {
+        mobileMenu.classList.remove("active");
+        navMenu.classList.remove("active");
+      }
+    });
+  }
+
+  /* ============================= */
+  /* SCROLL ANIMATIONS (OPTIMIZED) */
+  /* ============================= */
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+
+        const bar = entry.target.querySelector(".bar span");
+        if (bar && bar.dataset.width) {
+          bar.style.width = bar.dataset.width;
+        }
+
+        obs.unobserve(entry.target); // improves performance
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".timeline-item, .skill, .project-card")
+    .forEach(el => observer.observe(el));
+
+  /* ============================= */
+  /* BACK TO TOP (THROTTLED) */
+  /* ============================= */
+
+  const backToTopBtn = document.getElementById("back-to-top");
+
+  function throttle(fn, limit) {
+    let lastCall = 0;
+    return function () {
+      const now = Date.now();
+      if (now - lastCall >= limit) {
+        lastCall = now;
+        fn();
+      }
+    };
+  }
+
+  if (backToTopBtn) {
+    const handleScroll = throttle(() => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    }, 200);
+
+    window.addEventListener("scroll", handleScroll);
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ============================= */
+  /* SMOOTH SCROLL */
+  /* ============================= */
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href");
+
+      if (targetId.length > 1) {
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      }
+    });
   });
-});
 
-/* ============================= */
-/* ADD ANIMATION ON SCROLL */
-/* ============================= */
+  /* ============================= */
+  /* SECTION FADE-IN ANIMATION */
+  /* ============================= */
 
-const animateOnScroll = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
+  const sectionObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("fade-in");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll("section").forEach(section => {
+    section.classList.add("fade-init");
+    sectionObserver.observe(section);
   });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('section').forEach(section => {
-  section.style.opacity = '0';
-  section.style.transform = 'translateY(20px)';
-  section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  animateOnScroll.observe(section);
-});
 
 });
