@@ -150,7 +150,7 @@
     <div class="social-links" style="margin-top: 24px;">
       <a href="https://github.com/harshxdeep" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/harshwalia27" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="mailto:harshwalia27@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="/cdn-cgi/l/email-protection#ddb5bcafaeb5aabcb1b4bcefea9dbab0bcb4b1f3beb2b0" aria-label="Email"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 </header>
@@ -435,7 +435,7 @@
       <span class="avail-tag">Architecture review</span>
     </div>
     <br><br>
-    <a href="mailto:harshwalia27@gmail.com" class="hire-btn">
+    <a href="/cdn-cgi/l/email-protection#4e262f3c3d26392f22272f7c790e29232f2722602d2123" class="hire-btn">
       <i class="fas fa-envelope"></i> Get in touch
     </a>
   </div>
@@ -448,7 +448,7 @@
     <div class="contact-item">
       <i class="fas fa-envelope"></i>
       <h3>Email</h3>
-      <a href="mailto:harshwalia27@gmail.com">harshwalia27@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#fa929b8889928d9b96939bc8cdba9d979b9396d4999597"><span class="__cf_email__" data-cfemail="5e363f2c2d36293f32373f6c691e39333f3732703d3133">[email&#160;protected]</span></a>
     </div>
     <div class="contact-item">
       <i class="fas fa-phone"></i>
@@ -477,6 +477,305 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="script.js"></script>
-</body>
-</html>
+<!-- CHATBOT -->
+<style>
+#hd-chat-bubble {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #3DDC84; color: #000; border: none; cursor: pointer;
+  font-size: 22px; box-shadow: 0 4px 20px rgba(61,220,132,0.45);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+#hd-chat-bubble:hover { transform: scale(1.08); }
+#hd-chat-bubble .notif {
+  position: absolute; top: -4px; right: -4px;
+  width: 18px; height: 18px; background: #ff4757; border-radius: 50%;
+  font-size: 11px; font-weight: 700; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+#hd-chat-window {
+  position: fixed; bottom: 96px; right: 28px; z-index: 9998;
+  width: 360px; max-height: 540px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  display: none; flex-direction: column; overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+#hd-chat-window.open { display: flex; }
+.hd-chat-header {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 14px 18px; display: flex; align-items: center; gap: 12px;
+}
+.hd-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #3DDC84; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; color: #000; flex-shrink: 0;
+}
+.hd-chat-header-info h4 { color: #fff; font-size: 14px; margin: 0; font-weight: 600; }
+.hd-chat-header-info span { color: rgba(255,255,255,0.6); font-size: 11px; }
+.hd-online { width: 8px; height: 8px; background: #3DDC84; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.hd-chat-close {
+  margin-left: auto; background: transparent; border: none;
+  color: rgba(255,255,255,0.6); font-size: 18px; cursor: pointer; padding: 4px;
+}
+.hd-chat-close:hover { color: #fff; }
+#hd-chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px; display: flex;
+  flex-direction: column; gap: 10px; background: #f8f9fa;
+}
+.hd-msg {
+  max-width: 82%; padding: 10px 14px; border-radius: 16px;
+  font-size: 13px; line-height: 1.5;
+}
+.hd-msg.bot {
+  background: #fff; color: #222; align-self: flex-start;
+  border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.hd-msg.user {
+  background: #3DDC84; color: #000; align-self: flex-end;
+  border-bottom-right-radius: 4px; font-weight: 500;
+}
+.hd-msg.bot.typing { color: #aaa; font-style: italic; }
+.hd-quick-btns {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 0 16px 12px; background: #f8f9fa;
+}
+.hd-quick-btn {
+  background: #fff; border: 1px solid #ddd; border-radius: 20px;
+  padding: 6px 14px; font-size: 12px; cursor: pointer; color: #333;
+  font-family: 'Poppins', sans-serif; transition: all 0.15s;
+}
+.hd-quick-btn:hover { background: #3DDC84; border-color: #3DDC84; color: #000; font-weight: 600; }
+.hd-chat-input-row {
+  display: flex; padding: 12px 14px; gap: 8px;
+  border-top: 1px solid #eee; background: #fff;
+}
+#hd-chat-input {
+  flex: 1; border: 1px solid #ddd; border-radius: 20px;
+  padding: 8px 14px; font-size: 13px; outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+#hd-chat-input:focus { border-color: #3DDC84; }
+#hd-chat-send {
+  background: #3DDC84; border: none; border-radius: 50%;
+  width: 36px; height: 36px; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+#hd-chat-send:hover { background: #2bc870; }
+.hd-msg-time { font-size: 10px; color: #aaa; margin-top: 2px; }
+.hd-ai-badge {
+  display: inline-block; background: #e8f5e9; color: #2e7d32;
+  font-size: 10px; padding: 1px 7px; border-radius: 10px;
+  margin-bottom: 4px; font-weight: 600;
+}
+</style>
+
+<button id="hd-chat-bubble" onclick="toggleChat()" aria-label="Chat with Harsh">
+  <i class="fas fa-comment-dots" id="bubble-icon"></i>
+  <span class="notif" id="chat-notif">1</span>
+</button>
+
+<div id="hd-chat-window">
+  <div class="hd-chat-header">
+    <div class="hd-avatar">H</div>
+    <div class="hd-chat-header-info">
+      <h4>Harsh's Assistant</h4>
+      <span><span class="hd-online"></span>Online · replies instantly</span>
+    </div>
+    <button class="hd-chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="hd-chat-messages"></div>
+  <div id="hd-quick-btns-wrap" class="hd-quick-btns"></div>
+  <div class="hd-chat-input-row">
+    <input type="text" id="hd-chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendUserMsg()" />
+    <button id="hd-chat-send" onclick="sendUserMsg()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function() {
+  const CONTACT = { email: 'harshwalia27@gmail.com', linkedin: 'https://www.linkedin.com/in/harshwalia27' };
+  let step = 0;
+  let userData = {};
+  let chatOpen = false;
+  let notifShown = true;
+
+  const FLOW = [
+    { id: 'welcome', bot: "Hey there! 👋 I'm Harsh's assistant. I can answer questions about his work or help you get in touch.\n\nWhat brings you here today?", quick: ['I have a project in mind', 'I want to hire Harsh', 'Tell me about his experience', 'Ask me anything about Android'] },
+    { id: 'project_type', bot: "Great! What kind of project are you looking for?", quick: ['Android app', 'iOS app', 'Both iOS & Android', 'SDK / Integration work', 'Consulting / Review'] },
+    { id: 'project_scope', bot: "Got it. How would you describe the scope?", quick: ['Small feature / fix (< 2 weeks)', 'Medium project (1–2 months)', 'Large project (3+ months)', 'Ongoing / part-time'] },
+    { id: 'budget', bot: "Helpful to know — what's your rough budget range?", quick: ['< $2,000', '$2,000 – $10,000', '$10,000 – $30,000', '$30,000+', 'Not sure yet'] },
+    { id: 'name', bot: "Perfect. What's your name so Harsh can address you properly?", quick: [] },
+    { id: 'email', bot: (n) => `Nice to meet you, ${n}! 😊 What's the best email to reach you at?`, quick: [] },
+    { id: 'done', bot: (e) => `Thanks! I've noted everything down. Harsh will reach out to ${e} within 24 hours.\n\nIn the meantime, feel free to connect on LinkedIn or ask me anything about his tech stack!`, quick: ['View LinkedIn', 'What stack does Harsh use?', 'How many years experience?', 'Done, thanks!'] }
+  ];
+
+  const AI_QA = {
+    'what stack does harsh use': "Harsh specialises in **Kotlin & Jetpack Compose** for Android and **Swift/SwiftUI** for iOS. On the architecture side he uses Clean Architecture and MVVM. For cloud he works with Firebase and AWS Amplify, and he's highly experienced with Retrofit, Hilt, Coroutines, and Flow. 🛠️",
+    'how many years experience': "Harsh has **5.5+ years** of professional mobile development experience — working at ACL Digital, BirlaSoft, and Cognizant on enterprise-grade apps for VMO2 UK, Telefonica Europe, and UltraTech. 💼",
+    'has he worked with uk clients': "Yes! Harsh has worked directly with **VMO2 UK** and **O2 UK** engineering teams throughout his career — building carrier-branded apps and SDK integrations deployed across millions of UK subscribers. 🇬🇧",
+    'what is volte': "VoLTE stands for **Voice over LTE** — it enables high-quality voice calls over 4G/5G networks instead of older 2G/3G. Harsh has deep carrier-level experience implementing VoLTE on Android, including IMS Provider integration and device-specific configuration for O2 UK. 📡",
+    'what is jetpack compose': "**Jetpack Compose** is Android's modern declarative UI toolkit — similar to SwiftUI on iOS. Instead of XML layouts, you build UI with Kotlin functions. Harsh has used it in production at ACL Digital for a 20M+ user SDK, and it's now his primary Android UI approach. ⚡",
+    'can he work remotely': "Absolutely! Harsh has experience working async with UK and European teams throughout his career. He's comfortable with timezone overlap, regular stand-ups, and remote-first workflows. 🌍",
+    'what is clean architecture': "**Clean Architecture** separates an app into layers — UI, Domain (Use Cases), and Data — so each layer has one job and can be tested independently. Harsh applies this in all his enterprise projects to keep large codebases maintainable and scalable. 🏗️",
+    'availability': "Harsh is currently open to **freelance projects, remote contracts, and full-time overseas roles** in the UK, US, or Europe. He typically responds within 24 hours. 📬",
+    'default': "That's a great question! For detailed technical discussions, it's best to connect directly with Harsh. Want me to help you get in touch? 😊"
+  };
+
+  function getAIAnswer(msg) {
+    const m = msg.toLowerCase().trim();
+    for (const key of Object.keys(AI_QA)) {
+      if (key !== 'default' && m.includes(key.split(' ')[0]) && m.split(' ').some(w => key.includes(w))) {
+        return AI_QA[key];
+      }
+    }
+    for (const key of Object.keys(AI_QA)) {
+      if (key !== 'default' && m.includes(key.replace(/ /g, '').slice(0,6))) return AI_QA[key];
+    }
+    if (m.includes('volte') || m.includes('voice over')) return AI_QA['what is volte'];
+    if (m.includes('compose') || m.includes('jetpack')) return AI_QA['what is jetpack compose'];
+    if (m.includes('uk') || m.includes('british') || m.includes('london')) return AI_QA['has he worked with uk clients'];
+    if (m.includes('stack') || m.includes('technolog') || m.includes('kotlin') || m.includes('swift')) return AI_QA['what stack does harsh use'];
+    if (m.includes('year') || m.includes('experienc') || m.includes('senior')) return AI_QA['how many years experience'];
+    if (m.includes('remote') || m.includes('timezone') || m.includes('availab')) return AI_QA['availability'];
+    if (m.includes('clean') || m.includes('architect') || m.includes('mvvm')) return AI_QA['what is clean architecture'];
+    return AI_QA['default'];
+  }
+
+  function now() {
+    return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  }
+
+  function addMsg(text, type) {
+    const msgs = document.getElementById('hd-chat-messages');
+    const div = document.createElement('div');
+    div.className = 'hd-msg ' + type;
+    if (type === 'bot') {
+      div.innerHTML = (step >= 0 ? '<div class="hd-ai-badge">✦ AI Assistant</div><br>' : '') + text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>') + '<div class="hd-msg-time">' + now() + '</div>';
+    } else {
+      div.innerHTML = text + '<div class="hd-msg-time">' + now() + '</div>';
+    }
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    return addMsg('Typing...', 'bot typing');
+  }
+
+  function setQuickBtns(options) {
+    const wrap = document.getElementById('hd-quick-btns-wrap');
+    wrap.innerHTML = '';
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'hd-quick-btn';
+      btn.textContent = opt;
+      btn.onclick = () => handleQuickBtn(opt);
+      wrap.appendChild(btn);
+    });
+  }
+
+  function botSay(text, quick, delay) {
+    delay = delay || 800;
+    const typing = showTyping();
+    setTimeout(() => {
+      typing.remove();
+      addMsg(text, 'bot');
+      setQuickBtns(quick || []);
+    }, delay);
+  }
+
+  function handleQuickBtn(val) {
+    setQuickBtns([]);
+    addMsg(val, 'user');
+
+    if (val === 'View LinkedIn') { window.open(CONTACT.linkedin, '_blank'); botSay("Opening LinkedIn! Feel free to send a connection request. 🤝", ['What stack does Harsh use?', 'How many years experience?', 'Done, thanks!']); return; }
+    if (val === 'Done, thanks!') { botSay("You're welcome! Have a great day. 😊 Feel free to come back anytime.", []); return; }
+    if (val === 'Ask me anything about Android' || val === 'Tell me about his experience') {
+      botSay("Sure! Ask me anything — his tech stack, experience with UK clients, what VoLTE is, Jetpack Compose, Clean Architecture, availability... I've got you covered. 💬", []);
+      return;
+    }
+    if (val === 'I have a project in mind' || val === 'I want to hire Harsh') {
+      step = 1;
+      botSay(FLOW[1].bot, FLOW[1].quick);
+      return;
+    }
+
+    if (step === 1) { userData.projectType = val; step = 2; botSay(FLOW[2].bot, FLOW[2].quick); return; }
+    if (step === 2) { userData.scope = val; step = 3; botSay(FLOW[3].bot, FLOW[3].quick); return; }
+    if (step === 3) { userData.budget = val; step = 4; botSay(FLOW[4].bot, []); return; }
+
+    processInput(val);
+  }
+
+  function processInput(val) {
+    if (step === 4) {
+      userData.name = val;
+      step = 5;
+      const txt = typeof FLOW[5].bot === 'function' ? FLOW[5].bot(val) : FLOW[5].bot;
+      botSay(txt, []);
+      return;
+    }
+    if (step === 5) {
+      userData.email = val;
+      step = 6;
+      const txt = typeof FLOW[6].bot === 'function' ? FLOW[6].bot(val) : FLOW[6].bot;
+      submitToFormspree();
+      botSay(txt, FLOW[6].quick, 1200);
+      return;
+    }
+    // AI Q&A mode
+    const answer = getAIAnswer(val);
+    botSay(answer, ['What stack does Harsh use?', 'Has he worked with UK clients?', 'Can he work remotely?', 'I have a project in mind']);
+  }
+
+  function sendUserMsg() {
+    const input = document.getElementById('hd-chat-input');
+    const val = input.value.trim();
+    if (!val) return;
+    input.value = '';
+    setQuickBtns([]);
+    addMsg(val, 'user');
+    processInput(val);
+  }
+
+  async function submitToFormspree() {
+    const FORMSPREE_ID = 'xbdznloy'; // Replace with your Formspree ID e.g. 'xpwzabcd'
+    const endpoint = 'https://formspree.io/f/' + FORMSPREE_ID;
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: userData.name || 'Unknown',
+          email: userData.email || 'Unknown',
+          project_type: userData.projectType || 'Not specified',
+          scope: userData.scope || 'Not specified',
+          budget: userData.budget || 'Not specified',
+          source: 'Portfolio Chatbot',
+          submitted_at: new Date().toLocaleString()
+        })
+      });
+      if (res.ok) {
+        console.log('Lead submitted successfully:', userData);
+      } else {
+        const data = await res.json();
+        console.error('Formspree error:', data);
+      }
+    } catch (err) {
+      console.error('Failed to submit lead:', err);
+    }
+  }
+
+  window.toggleChat = function() {
+    chatOpen = !chatOpen;
+    const win = document.getElementById('hd-chat-window');
+    const icon = document.getElementById('bubble-icon');
+    const notif = document.getElementById('chat-notif');
+    win.classList.toggle('open', chatOpen);
+    icon.className = chatOpen ? 'fas fa-times' : 'fas fa-comment-dots';
+    if (chatOpen && notifShown) { notif.style.display = 'none'; notifShown = false; }
+    if (chatOpen && document.getElementById('hd-chat-messages').children.length === 0) {
+      setTimeou
