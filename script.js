@@ -4,9 +4,9 @@
 
 // Telegram Bot Configuration
 const TELEGRAM_CONFIG = {
-  enabled: false, // Will be set to true after you add your chat ID
+  enabled: true, // ✅ ENABLED - You'll get instant notifications!
   botToken: '8677139445:AAEZoKhhe1YDgESJLWAmWS9zX3BrlTVzq7Q',
-  chatId: 'YOUR_CHAT_ID' // Follow steps below to get this
+  chatId: '889126355'
 };
 
 // Discord Webhook Configuration
