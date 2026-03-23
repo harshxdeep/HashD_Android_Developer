@@ -1018,4 +1018,14 @@
     icon.className = chatOpen ? 'fas fa-times' : 'fas fa-comment-dots';
     if (chatOpen && notifShown) { notif.style.display = 'none'; notifShown = false; }
     if (chatOpen && document.getElementById('hd-chat-messages').children.length === 0) {
-      setTimeou
+      setTimeout(() => {
+        botSay(FLOW[0].bot, FLOW[0].quick);
+      }, 500);
+    }
+  };
+})();
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
