@@ -1,3 +1,81 @@
+/* ============================= */
+/* NOTIFICATION SETTINGS */
+/* ============================= */
+
+// Telegram Bot Configuration
+const TELEGRAM_CONFIG = {
+  enabled: false, // Will be set to true after you add your chat ID
+  botToken: '8677139445:AAEZoKhhe1YDgESJLWAmWS9zX3BrlTVzq7Q',
+  chatId: 'YOUR_CHAT_ID' // Follow steps below to get this
+};
+
+// Discord Webhook Configuration
+const DISCORD_CONFIG = {
+  enabled: false,
+  webhookUrl: 'YOUR_DISCORD_WEBHOOK_URL'
+};
+
+async function sendTelegramNotification(data) {
+  if (!TELEGRAM_CONFIG.enabled) return;
+
+  const message = `🚀 *NEW LEAD FROM PORTFOLIO!*\n\n` +
+    `👤 *Name:* ${data.name}\n` +
+    `📧 *Email:* ${data.email}\n` +
+    `💼 *Project:* ${data.project_type || 'Not specified'}\n` +
+    `📊 *Scope:* ${data.scope || 'Not specified'}\n` +
+    `💰 *Budget:* ${data.budget || 'Not specified'}\n` +
+    `📝 *Message:* ${data.message || 'N/A'}\n` +
+    `⏰ *Timeline:* ${data.timeline || 'N/A'}\n` +
+    `🌐 *Source:* ${data.source}\n` +
+    `⏰ *Time:* ${data.submitted_at}`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CONFIG.chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    });
+  } catch (err) {
+    console.log('Telegram notification failed:', err);
+  }
+}
+
+async function sendDiscordNotification(data) {
+  if (!DISCORD_CONFIG.enabled) return;
+
+  const embed = {
+    title: '🚀 New Lead from Portfolio!',
+    color: 3581780,
+    fields: [
+      { name: '👤 Name', value: data.name, inline: true },
+      { name: '📧 Email', value: data.email, inline: true },
+      { name: '💼 Project', value: data.project_type || 'Not specified', inline: true },
+      { name: '📊 Scope', value: data.scope || 'N/A', inline: true },
+      { name: '💰 Budget', value: data.budget || 'N/A', inline: true },
+      { name: '🌐 Source', value: data.source, inline: true }
+    ],
+    timestamp: new Date().toISOString()
+  };
+
+  if (data.message) {
+    embed.description = `**Message:** ${data.message.substring(0, 200)}${data.message.length > 200 ? '...' : ''}`;
+  }
+
+  try {
+    await fetch(DISCORD_CONFIG.webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ embeds: [embed] })
+    });
+  } catch (err) {
+    console.log('Discord notification failed:', err);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ============================= */
@@ -431,6 +509,22 @@ document.addEventListener('DOMContentLoaded', function() {
           statusDiv.className = 'form-status success';
           statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I\'ll get back to you within 24 hours.';
           statusDiv.style.display = 'block';
+
+          // Send instant notifications
+          const notificationData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            project_type: formData.get('project_type'),
+            budget: formData.get('budget'),
+            scope: 'N/A',
+            message: formData.get('message'),
+            timeline: formData.get('timeline'),
+            source: 'Contact Form',
+            submitted_at: new Date().toLocaleString()
+          };
+          sendTelegramNotification(notificationData);
+          sendDiscordNotification(notificationData);
+
           contactForm.reset();
           
           // Reset button after 2 seconds

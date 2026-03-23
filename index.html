@@ -896,6 +896,21 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function() {
+  // ===== NOTIFICATION SETTINGS =====
+  // Telegram Bot Configuration (Get instant notifications!)
+  const TELEGRAM_CONFIG = {
+    enabled: false, // Set to true after adding your chat ID
+    botToken: '8677139445:AAEZoKhhe1YDgESJLWAmWS9zX3BrlTVzq7Q',
+    chatId: 'YOUR_CHAT_ID' // Follow steps below to get this
+  };
+
+  // Discord Webhook (Alternative)
+  const DISCORD_CONFIG = {
+    enabled: false, // Set to true after setup
+    webhookUrl: 'YOUR_DISCORD_WEBHOOK_URL'
+  };
+  // ================================
+
   const CONTACT = { email: 'harshwalia27@gmail.com', linkedin: 'https://www.linkedin.com/in/harshwalia27' };
   let step = 0;
   let userData = {};
@@ -1042,6 +1057,62 @@
     processInput(val);
   }
 
+  async function sendTelegramNotification(data) {
+    if (!TELEGRAM_CONFIG.enabled) return;
+
+    const message = `🚀 *NEW LEAD FROM PORTFOLIO!*\n\n` +
+      `👤 *Name:* ${data.name}\n` +
+      `📧 *Email:* ${data.email}\n` +
+      `💼 *Project:* ${data.project_type}\n` +
+      `📊 *Scope:* ${data.scope}\n` +
+      `💰 *Budget:* ${data.budget}\n` +
+      `🌐 *Source:* ${data.source}\n` +
+      `⏰ *Time:* ${data.submitted_at}`;
+
+    try {
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CONFIG.chatId,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
+    } catch (err) {
+      console.log('Telegram notification failed:', err);
+    }
+  }
+
+  async function sendDiscordNotification(data) {
+    if (!DISCORD_CONFIG.enabled) return;
+
+    const embed = {
+      title: '🚀 New Lead from Portfolio!',
+      color: 3581780, // Blue color
+      fields: [
+        { name: '👤 Name', value: data.name, inline: true },
+        { name: '📧 Email', value: data.email, inline: true },
+        { name: '💼 Project Type', value: data.project_type, inline: true },
+        { name: '📊 Scope', value: data.scope, inline: true },
+        { name: '💰 Budget', value: data.budget, inline: true },
+        { name: '🌐 Source', value: data.source, inline: true }
+      ],
+      timestamp: new Date().toISOString(),
+      footer: { text: 'Portfolio Lead System' }
+    };
+
+    try {
+      await fetch(DISCORD_CONFIG.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds: [embed] })
+      });
+    } catch (err) {
+      console.log('Discord notification failed:', err);
+    }
+  }
+
   async function submitToFormspree() {
     const FORMSPREE_ID = 'xbdznloy'; // Replace with your Formspree ID e.g. 'xpwzabcd'
     const endpoint = 'https://formspree.io/f/' + FORMSPREE_ID;
@@ -1061,6 +1132,18 @@
       });
       if (res.ok) {
         console.log('Lead submitted successfully:', userData);
+        // Send instant notifications
+        const notificationData = {
+          name: userData.name || 'Unknown',
+          email: userData.email || 'Unknown',
+          project_type: userData.projectType || 'Not specified',
+          scope: userData.scope || 'Not specified',
+          budget: userData.budget || 'Not specified',
+          source: 'Portfolio Chatbot',
+          submitted_at: new Date().toLocaleString()
+        };
+        sendTelegramNotification(notificationData);
+        sendDiscordNotification(notificationData);
       } else {
         const data = await res.json();
         console.error('Formspree error:', data);
