@@ -896,4 +896,69 @@ footer {
   h2 {
     font-size: 24px !important;
   }
+  /* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
+
+/* Navbar mobile */
+.nav-menu.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  gap: 15px;
+}
+
+/* Hamburger animation */
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.menu-toggle.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Back to top */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  display: none;
+  background: #3DDC84;
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(61,220,132,0.4);
+}
+
+/* Skill animation */
+.bar span {
+  display: block;
+  height: 6px;
+  background: #3DDC84;
+  width: 0;
+  transition: width 1.2s ease-in-out;
+  border-radius: 10px;
+}
+
+/* Chat smooth open */
+#hd-chat-window {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+#hd-chat-window.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+}
+
