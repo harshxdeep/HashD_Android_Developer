@@ -5,8 +5,7 @@
 // Telegram Bot Configuration
 const TELEGRAM_CONFIG = {
   enabled: true, // ✅ ENABLED - You'll get instant notifications!
-  botToken: '8677139445:AAEZoKhhe1YDgESJLWAmWS9zX3BrlTVzq7Q',
-  chatId: '889126355'
+  webhookUrl: 'https://portfolio-telegram-webhook.harshwalia27.workers.dev'
 };
 
 // Discord Webhook Configuration
@@ -16,31 +15,17 @@ const DISCORD_CONFIG = {
 };
 
 async function sendTelegramNotification(data) {
-  if (!TELEGRAM_CONFIG.enabled) return;
-
-  const message = `🚀 *NEW LEAD FROM PORTFOLIO!*\n\n` +
-    `👤 *Name:* ${data.name}\n` +
-    `📧 *Email:* ${data.email}\n` +
-    `💼 *Project:* ${data.project_type || 'Not specified'}\n` +
-    `📊 *Scope:* ${data.scope || 'Not specified'}\n` +
-    `💰 *Budget:* ${data.budget || 'Not specified'}\n` +
-    `📝 *Message:* ${data.message || 'N/A'}\n` +
-    `⏰ *Timeline:* ${data.timeline || 'N/A'}\n` +
-    `🌐 *Source:* ${data.source}\n` +
-    `⏰ *Time:* ${data.submitted_at}`;
+  if (!TELEGRAM_CONFIG.enabled || !TELEGRAM_CONFIG.webhookUrl) return;
 
   try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+    await fetch(TELEGRAM_CONFIG.webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CONFIG.chatId,
-        text: message,
-        parse_mode: 'Markdown'
-      })
+      body: JSON.stringify(data)
     });
+    console.log('✅ Telegram notification sent!');
   } catch (err) {
-    console.log('Telegram notification failed:', err);
+    console.log('❌ Telegram notification failed:', err);
   }
 }
 
