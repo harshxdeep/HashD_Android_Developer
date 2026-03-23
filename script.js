@@ -396,3 +396,62 @@ console.log('%c👋 Hi there!', 'font-size: 20px; color: #38bdf8; font-weight: b
 console.log('%cLooking at the code? I like your style!', 'font-size: 14px; color: #3DDC84;');
 console.log('%cLet\'s connect: https://www.linkedin.com/in/harshwalia27', 'font-size: 12px; color: #cbd5e1;');
 
+
+/* ============================= */
+/* CONTACT FORM HANDLING */
+/* ============================= */
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contact-form');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = contactForm.querySelector('.form-submit-btn');
+      const statusDiv = document.getElementById('form-status');
+      const formData = new FormData(contactForm);
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      statusDiv.style.display = 'none';
+      
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Success
+          statusDiv.className = 'form-status success';
+          statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I\'ll get back to you within 24 hours.';
+          statusDiv.style.display = 'block';
+          contactForm.reset();
+          
+          // Reset button after 2 seconds
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+          }, 2000);
+          
+        } else {
+          throw new Error('Form submission failed');
+        }
+        
+      } catch (error) {
+        // Error
+        statusDiv.className = 'form-status error';
+        statusDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try again or email me directly at harshwalia27@gmail.com';
+        statusDiv.style.display = 'block';
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+      }
+    });
+  }
+});

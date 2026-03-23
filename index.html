@@ -706,6 +706,67 @@
       <a href="https://github.com/harshxdeep" target="_blank">github.com/harshxdeep</a>
     </div>
   </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form-container">
+    <h3><i class="fas fa-paper-plane"></i> Send Me a Message</h3>
+    <p style="color: #94a3b8; margin-bottom: 30px;">Fill out the form below and I'll get back to you within 24 hours</p>
+
+    <form id="contact-form" action="https://formspree.io/f/xbdznloy" method="POST" class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="form-name"><i class="fas fa-user"></i> Your Name *</label>
+          <input type="text" id="form-name" name="name" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label for="form-email"><i class="fas fa-envelope"></i> Your Email *</label>
+          <input type="email" id="form-email" name="email" required placeholder="john@example.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="form-project-type"><i class="fas fa-laptop-code"></i> Project Type *</label>
+          <select id="form-project-type" name="project_type" required>
+            <option value="">Select project type...</option>
+            <option value="Android App">Android App</option>
+            <option value="iOS App">iOS App</option>
+            <option value="Both iOS & Android">Both iOS & Android</option>
+            <option value="SDK Integration">SDK / Integration Work</option>
+            <option value="Consulting">Consulting / Code Review</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="form-budget"><i class="fas fa-dollar-sign"></i> Budget Range</label>
+          <select id="form-budget" name="budget">
+            <option value="">Select budget...</option>
+            <option value="< $2,000">< $2,000</option>
+            <option value="$2,000 - $10,000">$2,000 - $10,000</option>
+            <option value="$10,000 - $30,000">$10,000 - $30,000</option>
+            <option value="$30,000+">$30,000+</option>
+            <option value="Not sure">Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="form-message"><i class="fas fa-comment-dots"></i> Project Details *</label>
+        <textarea id="form-message" name="message" rows="6" required placeholder="Tell me about your project requirements, timeline, and any specific features you need..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="form-timeline"><i class="fas fa-calendar-alt"></i> Expected Timeline</label>
+        <input type="text" id="form-timeline" name="timeline" placeholder="e.g., Start in 2 weeks, 3-month project">
+      </div>
+
+      <button type="submit" class="form-submit-btn">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+
+      <div id="form-status" class="form-status"></div>
+    </form>
+  </div>
 </section>
 
 <footer>
